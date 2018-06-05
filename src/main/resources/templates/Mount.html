@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="icon" type="image/png" href="data:image/png;base64,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" />
+    <title>Home OFMS</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+    <!--<script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/fskirschbaum/pen/MYJNaj" />-->
+    <!--<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://www.google.com/jsapi?autoload={
+    'modules':[{
+      'name':'visualization',
+      'version':'1',
+      'packages':['corechart']
+    }]
+  }"></script>
+
+
+</head>
+
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+img_ {
+  border-radius: 50%;
+}
+body {
+    background-image: url("../images/background3.jpg");
+    height: 100%;
+    background-repeat:  no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.vertical-menu {
+    width: 400px;
+}
+
+.vertical-menu a {
+    background-color: #eee;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.vertical-menu a:hover {
+    background-color: #ccc;
+}
+
+.vertical-menu a.active {
+    background-color: #73BAB7;
+    color: black;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 5px solid black;
+    text-align: left;
+    padding: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+    height: 700px; /* Should be removed. Only for demonstration */
+}
+
+/* Left and right column */
+.column.side {
+    width: 25%;
+}
+
+/* Middle column */
+.column.middle {
+    width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Style the footer */
+.footer {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+    .column.side, .column.middle {
+        width: 100%;
+    }
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 35px;
+    text-align: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: green;
+}
+</style>
+<style class="cp-pen-styles">
+.container {
+   position: relative;
+  margin-right: auto;
+  margin-top: 100px;
+  width: 900px;
+  height: 10px;
+}
+.left {
+  position: absolute;
+  left: -100px;
+  width: 100px;
+  height: 200px;
+  background-color: light-grey;
+}
+.right {
+  position: absolute;
+  right: -100px;
+  width: 100px;
+  height: 200px;
+  background-color: light-grey;
+}
+.led-box {
+  height: 30px;
+  width: 25%;
+  margin: 10px 0;
+  float: left;
+  width: 300px;
+    border: 10px solid grey;
+}
+
+.led-box p {
+  font-size: 12px;
+  text-align: center;
+  margin: 1em;
+}
+
+.led-red {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #F00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
+  -webkit-animation: blinkRed 0.5s infinite;
+  -moz-animation: blinkRed 0.5s infinite;
+  -ms-animation: blinkRed 0.5s infinite;
+  -o-animation: blinkRed 0.5s infinite;
+  animation: blinkRed 0.5s infinite;
+}
+
+@-webkit-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-moz-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-ms-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-o-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+
+.led-yellow {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #FF0;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 12px;
+  -webkit-animation: blinkYellow 1s infinite;
+  -moz-animation: blinkYellow 1s infinite;
+  -ms-animation: blinkYellow 1s infinite;
+  -o-animation: blinkYellow 1s infinite;
+  animation: blinkYellow 1s infinite;
+}
+
+@-webkit-keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+@-moz-keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+@-ms-keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+@-o-keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+@keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+
+.led-green {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #00A51B;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+}
+
+.led-blue {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #24E0FF;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
+}</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+    <a th:href="@{/}"><img src="../images/observatory.png" class="w3-margin-left" style="width:70px"/></a>
+    <span class="w3-bar-item w3-right"></span>
+    <span class="w3-bar-item w3-right">Observatorio Astronómico Francisco Manuel Sánchez</span>
+</div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:130px;margin-top:43px;">
+
+    <!-- Header -->
+    <header class="w3-container" style="padding-top:22px">
+        <h5><b><i class="fa fa-dashboard"></i> Dispositivos</b></h5>
+    </header>
+
+    <div class="w3-container">
+        <div>
+            <a th:href="@{/WeatherStation}">
+                <button class="w3-btn w3-border w3-round-xxlarge w3-blue w3-quarter w3-padding-16">
+                    <div class="w3-left"><i class="fa fa-thermometer-3 w3-xxxlarge"></i></div>
+                    <h2>Estación Meteorológica</h2>
+                </button>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{/Dome}">
+                <button class="w3-btn w3-border w3-round-xxlarge w3-green w3-quarter w3-padding-16">
+                    <div class="w3-left"><i class="fa fa-compass w3-xxxlarge"></i></div>
+                    <h2>Cúpula</h2>
+                </button>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{/Mount}">
+                <button class="w3-btn w3-border w3-round-xxlarge w3-teal w3-quarter w3-padding-16">
+                    <div class="w3-left"><i class="fa fa-gears w3-xxxlarge"></i></div>
+                    <h2>Montura Telescopio</h2>
+                </button>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{/Camera}">
+                <button class="w3-btn w3-border w3-round-xxlarge w3-indigo w3-quarter w3-padding-16">
+                    <div class="w3-left"><i class="fa fa-camera w3-xxxlarge"></i></div>
+                    <h2>Cámara</h2>
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="footer">
+        <header class="w3-container" style="padding-top:22px">
+            <table>
+                <tr>
+                    <td><center><h4><b><i class="fa fa-refresh fa-spin"></i> Estados</b></h4></center></td>
+
+                    <td><form role="search" th:action="@{/Mount}" method="get">
+                        <input class="button" type="submit" value="Refresh"/>
+                    </form>
+                    </td>
+                </tr>
+                <section>
+                    <table> <!--Estados -->
+                        <tr>
+                            <td><center><h4><b>Montura</b></h4></center></td>
+                            <td>
+                                <!-- IF true -->
+                                <div th:if="${states[0]}">
+                                    <div class="led-green"></div>
+                                </div>
+                                <!-- ELSE -->
+                                <div th:unless="${states[0]}">
+                                    <div class="led-red"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <!-- IF true -->
+                                <div th:if="${states[0]}">
+                                    <center><h4><b>ON</b></h4></center>
+                                </div>
+                                <!-- ELSE -->
+                                <div th:unless="${states[0]}">
+                                    <center><h4><b>OFF</b></h4></center>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+            </table>
+        </header>
+    </div>
+
+    <div class="row">
+        <div class="column side">
+            <header class="w3-container" style="padding-top:22px">
+                <h5><b><i class="fa fa-refresh fa-spin"></i> Datos</b></h5>
+            </header>
+            <section>
+                <table> <!--Estados -->
+                    <tr>
+                        <td><center><h5><b>Azimuth</b></h5></center></td>
+                        <td>
+                            <center><h5><b>180</b></h5></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><center><h5><b>Altitud</b></h5></center></td>
+                        <td>
+                            <center><h5><b>25</b></h5></center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><center><h5><b>Movimiento Actual</b></h5></center></td>
+                        <td>
+                            <center><h5><b>Parked</b></h5></center>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+        </div>
+        <div class="column middle">
+            <header class="w3-container" style="padding-top:22px">
+                <h3><b><i class="fa fa-refresh fa-spin"></i>Cámara Interior</b></h3>
+            </header>
+            <img src="http://pluton.datsi.fi.upm.es:8484/Camera_inside/properties/NewPhoto" style="width:700px"/>
+        </div>
+        <div class="column side">
+            <header class="w3-container" style="padding-top:22px">
+                <h5><b><i class="fa fa-refresh fa-spin"></i> Alarmas</b></h5>
+            </header>
+            <table>
+                <tr>
+                    <td><center><h5><b>Cambio del Movimiento</b></h5></center></td>
+                    <td>
+                        <div class="led-green"></div>
+                    </td>
+                    <td>
+                        <center><h5><b>Parked</b></h5></center>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column side">
+            <header class="w3-container" style="padding-top:22px">
+                <h3><b>¿Dónde tomar las fotos?:</b></h3>
+            </header>
+            <section>
+                <table> <!--Estados -->
+                    <tr>
+                        <td>
+                            <h3><label for="idRA"> Right Ascension(RA) degrees</label></h3>
+                            <input type="text" id="idRA" name="idRA" placeHolder="Ej: 101.287"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3><label for="idDEC">Declination(DEC) degrees</label></h3>
+                            <input type="text" id="idDEC" name="idDEC" placeHolder="Ej: -16.716"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3><label for="idTrack">Set Tracking </label></h3>
+                            <input type="text" id="idTrack" name="idTrack" placeHolder="Ej: 10"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form role="search">
+                                <input class="button" type="submit" value="Actualizar Valores"/>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+        </div>
+        <div class="column middle">
+            <center><h2>Botones de Acción sobre la Montura</h2></center>
+            <table>
+                <tr>
+                    <td>
+                        <div>
+                            <form role="search">
+                                <input class="button" type="submit" value="Go Park"/>
+                            </form>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <form role="search">
+                                <input class="button" type="submit" value="Go Home"/>
+                            </form>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <form role="search">
+                                <input class="button" type="submit" value="Go North"/>
+                            </form>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <form role="search">
+                                <input class="button" type="submit" value="Go South"/>
+                            </form>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <form role="search">
+                                <input class="button" type="submit" value="Go East"/>
+                            </form>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <form role="search">
+                                <input class="button" type="submit" value="Go West"/>
+                            </form>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <form role="search">
+                                <input class="button" type="submit" value="Stop"/>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="column side">
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <!-- Footer -->
+        <!--<footer class="w3-container w3-padding-16 w3-light-grey">-->
+        <h4><p>Cíclope Group:
+            <a href="http://pluton.datsi.fi.upm.es/inicio">
+                Observatorio Astronómico Francisco Manuel Sánchez
+            </a>
+        </p></h4>
+        <!--</footer>-->
+
+        <!-- End page content -->
+    </div>
+</div>
+
+</body>
+</html>

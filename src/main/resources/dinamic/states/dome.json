@@ -1,0 +1,1 @@
+{"name":"State","description":"Shows if the gateway has a connection to the Dome.","values":{"st":{"name":"State","description":"Shows if the gateway has a connection to the Dome.","unit":{"ON":"With Connection","OFF":"Without Connection"},"type":"string"}},"tags":["state","connection","public"],"data":{"state":"OFF","timestamp":"Sun May 20 2018 10:30:57 GMT+0200 (CEST)"}}
