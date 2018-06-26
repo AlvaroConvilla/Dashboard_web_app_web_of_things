@@ -1,5 +1,5 @@
-Dashboard/Route.class
-Dashboard/AppService.class
-Dashboard/GatewayStates.class
-Dashboard/Application.class
-Dashboard/AppController.class
+Dashboard\Route.class
+Dashboard\GatewayStates.class
+Dashboard\AppController.class
+Dashboard\AppService.class
+Dashboard\Application.class
