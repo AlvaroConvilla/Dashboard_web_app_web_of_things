@@ -12,6 +12,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!--<script src='//static.codepen.io/assets/editor/live/console_runner-ce3034e6bde3912cc25f83cccb7caa2b0f976196f2f2d52303a462c826d54a73.js'></script><script src='//static.codepen.io/assets/editor/live/css_live_reload_init-890dc39bb89183d4642d58b1ae5376a0193342f9aed88ea04330dc14c8d52f55.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/fskirschbaum/pen/MYJNaj" />-->
     <!--<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>-->
@@ -322,153 +323,113 @@ td, th {
                         <td><h5><b><i class="fa fa-refresh fa-spin"></i> Estados</b></h5></td>
 
                         <td><form role="search" th:action="@{/}" method="get">
-                            <input class="button" type="submit" value="Refresh"/>
+                            <!-- <input class="button" type="submit" value="Refresh"/> -->
+                            <button id="connect" class="button" type="submit">Connect</button>
                             </form>
                         </td>
                     </tr>
                 </table>
             </header>
             <section>
-            <table> <!--Estados -->
-                <tr>
+            <table><!--Estados -->
+                <!--<tr>
                     <td><center><h5><b>Estación Meteorológica</b></h5></center></td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[0]}">
-                            <div class="led-green"></div>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[0]}">
-                            <div class="led-red"></div>
-                        </div>
+                        <div id="weather_led"></div>
                     </td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[0]}">
-                            <center><h5><b>ON</b></h5></center>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[0]}">
-                            <center><h5><b>OFF</b></h5></center>
-                        </div>
+                        <div id="weather_state"></div>>
                     </td>
                 </tr>
                 <tr>
                     <td><center><h5><b>Cúpula</b></h5></center></td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[1]}">
-                            <div class="led-green"></div>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[1]}">
-                            <div class="led-red"></div>
-                        </div>
+                        <div id="dome_led"></div>
                     </td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[1]}">
-                            <center><h5><b>ON</b></h5></center>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[1]}">
-                            <center><h5><b>OFF</b></h5></center>
-                        </div>
+                        <div id="dome_state"></div>>
                     </td>
                 </tr>
                 <tr>
                     <td><center><h5><b>Montura</b></h5></center></td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[2]}">
-                            <div class="led-green"></div>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[2]}">
-                            <div class="led-red"></div>
-                        </div>
+                        <div id="mount_led"></div>
                     </td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[2]}">
-                            <center><h5><b>ON</b></h5></center>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[2]}">
-                            <center><h5><b>OFF</b></h5></center>
-                        </div>
+                        <div id="mount_state"></div>>
                     </td>
                 </tr>
                 <tr>
                     <td><center><h5><b>Cámara DMK</b></h5></center></td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[3]}">
-                            <div class="led-green"></div>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[3]}">
-                            <div class="led-red"></div>
-                        </div>
+                        <div id="camDMK_led"></div>
                     </td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[3]}">
-                            <center><h5><b>ON</b></h5></center>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[3]}">
-                            <center><h5><b>OFF</b></h5></center>
-                        </div>
-                    </td>
+                        <div id="camDMK_state"></div>>
+                    </td>>
                 </tr>
                 <tr>
                     <td><center><h5><b>Cámara Interior</b></h5></center></td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[4]}">
-                            <div class="led-green"></div>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[4]}">
-                            <div class="led-red"></div>
-                        </div>
+                        <div id="camIn_led"></div>
                     </td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[4]}">
-                            <center><h5><b>ON</b></h5></center>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[4]}">
-                            <center><h5><b>OFF</b></h5></center>
-                        </div>
+                        <div id="camIn_state"></div>>
                     </td>
                 </tr>
                 <tr>
                     <td><center><h5><b>Cámara Exterior</b></h5></center></td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[5]}">
-                            <div class="led-green"></div>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[5]}">
-                            <div class="led-red"></div>
-                        </div>
+                        <div id="camExt_led"></div>
                     </td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${states[5]}">
-                            <center><h5><b>ON</b></h5></center>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${states[5]}">
-                            <center><h5><b>OFF</b></h5></center>
-                        </div>
+                        <div id="camExt_state"></div>
                     </td>
                 </tr>
+                <tr><td>
+                    <div id="div1"></div>
+                </td></tr>-->
             </table>
+                <!--<script type="text/javascript">
+                                $(document).ready(function () {
+                                    //WeatherStation
+                                    //Valores iniciales: Cargando...
+                                    var v1 = document.createElement("p");
+                                    v1.setAttribute("id", "weather1");
+                                    var txt1 = document.createTextNode("Cargando...");
+                                    v1.appendChild(txt1);
+                                    var element = document.getElementById("weather_led");
+                                    element.appendChild(v1);
+
+                                    var v2 = document.createElement("p");
+                                    v2.setAttribute("id", "weather2");
+                                    var txt2 = document.createTextNode("Cargando...");
+                                    v2.appendChild(txt2);
+                                    var element = document.getElementById("weather_state");
+                                    element.appendChild(v2);
+
+                                    var socket = new WebSocket('ws://pluton.datsi.fi.upm.es:8484/WeatherStation/properties/demo_grafica'); //#A
+                                    socket.onmessage = function (event) { //#B
+                                      var result = JSON.parse(event.data);
+                                      //console.log(event.data);
+                                      console.log(result.data.temperature);
+
+                                      $("#prueba").remove();
+                                      var para = document.createElement("p");
+                                      para.setAttribute("id", "prueba");
+                                      var node = document.createTextNode("This is new.");
+                                      para.appendChild(node);
+                                      var element = document.getElementById("div1");
+                                      element.appendChild(para);
+                                      //<tr><td><div class="led-green"></div></td></tr>
+                                    };
+
+                                    socket.onerror = function (error) { //#C
+                                      console.log('WebSocket error!');
+                                      console.log(error);
+                                    };
+                                });
+                            </script>-->
             </section>
         </div>
         <div class="column middle">
@@ -538,44 +499,30 @@ socket.onerror = function (error) { //#C
                 <tr>
                     <td><center><h5><b>Alta Temperatura</b></h5></center></td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${alarms[0]}">
-                            <div class="led-red"></div>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${alarms[0]}">
-                            <div class="led-green"></div>
-                        </div>
+                        <div id="altaTemp_led"></div>
                     </td>
                     <td>
-                        <!-- IF true -->
-                        <div th:if="${alarms[0]}">
-                            <center><h5><b>WARNING</b></h5></center>
-                        </div>
-                        <!-- ELSE -->
-                        <div th:unless="${alarms[0]}">
-                            <center><h5><b>OK</b></h5></center>
-                        </div>
+                        <div id="altaTemp_state"></div>
                     </td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td><center><h5><b>Baja Temperatura</b></h5></center></td>
                     <td>
-                        <!-- IF true -->
+                        &lt;!&ndash; IF true &ndash;&gt;
                         <div th:if="${alarms[1]}">
                             <div class="led-red"></div>
                         </div>
-                        <!-- ELSE -->
+                        &lt;!&ndash; ELSE &ndash;&gt;
                         <div th:unless="${alarms[1]}">
                             <div class="led-green"></div>
                         </div>
                     </td>
                     <td>
-                        <!-- IF true -->
+                        &lt;!&ndash; IF true &ndash;&gt;
                         <div th:if="${alarms[1]}">
                             <center><h5><b>WARNING</b></h5></center>
                         </div>
-                        <!-- ELSE -->
+                        &lt;!&ndash; ELSE &ndash;&gt;
                         <div th:unless="${alarms[1]}">
                             <center><h5><b>OK</b></h5></center>
                         </div>
@@ -584,21 +531,21 @@ socket.onerror = function (error) { //#C
                 <tr>
                     <td><center><h5><b>Lluvia</b></h5></center></td>
                     <td>
-                        <!-- IF true -->
+                        &lt;!&ndash; IF true &ndash;&gt;
                         <div th:if="${alarms[2]}">
                             <div class="led-red"></div>
                         </div>
-                        <!-- ELSE -->
+                        &lt;!&ndash; ELSE &ndash;&gt;
                         <div th:unless="${alarms[2]}">
                             <div class="led-green"></div>
                         </div>
                     </td>
                     <td>
-                        <!-- IF true -->
+                        &lt;!&ndash; IF true &ndash;&gt;
                         <div th:if="${alarms[2]}">
                             <center><h5><b>WARNING</b></h5></center>
                         </div>
-                        <!-- ELSE -->
+                        &lt;!&ndash; ELSE &ndash;&gt;
                         <div th:unless="${alarms[2]}">
                             <center><h5><b>OK</b></h5></center>
                         </div>
@@ -607,28 +554,110 @@ socket.onerror = function (error) { //#C
                 <tr>
                     <td><center><h5><b>Viento Racheado</b></h5></center></td>
                     <td>
-                        <!-- IF true -->
+                        &lt;!&ndash; IF true &ndash;&gt;
                         <div th:if="${alarms[3]}">
                             <div class="led-red"></div>
                         </div>
-                        <!-- ELSE -->
+                        &lt;!&ndash; ELSE &ndash;&gt;
                         <div th:unless="${alarms[3]}">
                             <div class="led-green"></div>
                         </div>
                     </td>
                     <td>
-                        <!-- IF true -->
+                        &lt;!&ndash; IF true &ndash;&gt;
                         <div th:if="${alarms[3]}">
                             <center><h5><b>WARNING</b></h5></center>
                         </div>
-                        <!-- ELSE -->
+                        &lt;!&ndash; ELSE &ndash;&gt;
                         <div th:unless="${alarms[3]}">
                             <center><h5><b>OK</b></h5></center>
                         </div>
                     </td>
-                </tr>
+                </tr>-->
             </table>
         </div>
+        <script type="text/javascript">
+                                $(document).ready(function () {
+                                    //WeatherStation
+                                    //Valores iniciales: Cargando...
+                                    var v1 = document.createElement("p");
+                                    v1.setAttribute("id", "weather1");
+                                    var txt1 = document.createTextNode("Cargando...");
+                                    v1.appendChild(txt1);
+                                    var element = document.getElementById("altaTemp_led");
+                                    element.appendChild(v1);
+
+                                    var v2 = document.createElement("p");
+                                    v2.setAttribute("id", "weather2");
+                                    var txt2 = document.createTextNode("Cargando...");
+                                    v2.appendChild(txt2);
+                                    var element = document.getElementById("altaTemp_state");
+                                    element.appendChild(v2);
+
+                                    var socket = new WebSocket('ws://pluton.datsi.fi.upm.es:8484/WeatherStation/events/HighTemperature'); //#A
+                                    socket.onmessage = function (event) { //#B
+                                      var result = JSON.parse(event.data);
+                                      //console.log(event.data);
+                                      console.log(result.data.state);
+                                      var state = result.data.state;
+
+                                      $("#weather1").remove();
+                                      $("#weather2").remove();
+
+                                      if(state == "OFF"){
+                                          var v3 = document.createElement("div");
+                                          v3.setAttribute("id", "weather1");
+                                          v3.setAttribute("class", "led-green");
+                                          var element1 = document.getElementById("altaTemp_led");
+                                          element1.appendChild(v3);
+                                          //<tr><td><div class="led-green"></div></td></tr>
+
+                                          var v4 = document.createElement("div");
+                                          v4.setAttribute("id", "weather2");
+                                          var v5 = document.createElement("center");
+                                          var v6 = document.createElement("h5");
+                                          var v7 = document.createElement("b");
+                                          v4.appendChild(v5);
+                                          v5.appendChild(v6);
+                                          v6.appendChild(v7);
+                                          var txt4 = document.createTextNode("OK");
+                                          v7.appendChild(txt4);
+                                          var element2 = document.getElementById("altaTemp_state");
+                                          element2.appendChild(v4);
+                                          //<center><h5><b>OFF</b></h5></center>
+                                      }
+                                      else{
+                                          var v3 = document.createElement("div");
+                                          v3.setAttribute("id", "weather1");
+                                          v3.setAttribute("class", "led-red");
+                                          //var txt3 = document.createTextNode("This is new.");
+                                          //v3.appendChild(txt3);
+                                          var element = document.getElementById("altaTemp_led");
+                                          element.appendChild(v3);
+                                          //<tr><td><div class="led-red"></div></td></tr>
+
+                                          var v4 = document.createElement("div");
+                                          v4.setAttribute("id", "weather2");
+                                          var v5 = document.createElement("center");
+                                          var v6 = document.createElement("h5");
+                                          var v7 = document.createElement("b");
+                                          v4.appendChild(v5);
+                                          v5.appendChild(v6);
+                                          v6.appendChild(v7);
+                                          var txt4 = document.createTextNode("WARNING");
+                                          v7.appendChild(txt4);
+                                          var element2 = document.getElementById("altaTemp_state");
+                                          element2.appendChild(v4);
+                                          //<center><h5><b>OFF</b></h5></center>
+                                      }
+                                    };
+
+                                    socket.onerror = function (error) { //#C
+                                      console.log('WebSocket error!');
+                                      console.log(error);
+                                    };
+                                });
+                            </script>
     </div>
 
     <div class="row">

@@ -1,1 +1,0 @@
-{"name":"Anemometer","description":"Calculate the wind speed. The unit of measurement is meters per second.","values":{"ws":{"name":"WindSpeed","description":"Speed of the wind","unit":"meter per second","type":"float"}},"tags":["sensor","public"],"data":{"windSpeed":32.20000000000001,"timestamp":"Sun May 20 2018 10:41:57 GMT+0200 (CEST)"}}
