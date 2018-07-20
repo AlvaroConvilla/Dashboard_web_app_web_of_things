@@ -140,7 +140,7 @@
         return d.toLocaleTimeString();
       }
 
-var socket = new WebSocket('ws://pluton.datsi.fi.upm.es:8484/WeatherStation/properties/demo_grafica'); //#A
+var socket = new WebSocket('wss://ofs.fi.upm.es:8484/WoT/WeatherStation/properties/demo_grafica'); //#A
 
 socket.onmessage = function (event) { //#B
   var result = JSON.parse(event.data);
@@ -187,7 +187,7 @@ socket.onerror = function (error) { //#C
         return d.toLocaleTimeString();
       }
 
-var socket = new WebSocket('ws://pluton.datsi.fi.upm.es:8484/WeatherStation/properties/demo_press'); //#A
+var socket = new WebSocket('wss://ofs.fi.upm.es:8484/WoT/WeatherStation/properties/demo_press'); //#A
 
 socket.onmessage = function (event) { //#B
   var result = JSON.parse(event.data);
@@ -234,7 +234,7 @@ socket.onerror = function (error) { //#C
         return d.toLocaleTimeString();
       }
 
-var socket = new WebSocket('ws://pluton.datsi.fi.upm.es:8484/WeatherStation/properties/demo_windSpeed'); //#A
+var socket = new WebSocket('wss://ofs.fi.upm.es:8484/WoT/WeatherStation/properties/demo_windSpeed'); //#A
 
 socket.onmessage = function (event) { //#B
   var result = JSON.parse(event.data);
@@ -281,7 +281,7 @@ socket.onerror = function (error) { //#C
         return d.toLocaleTimeString();
       }
 
-var socket = new WebSocket('ws://pluton.datsi.fi.upm.es:8484/WeatherStation/properties/demo_humidity'); //#A
+var socket = new WebSocket('wss://ofs.fi.upm.es:8484/WoT/WeatherStation/properties/demo_humidity'); //#A
 
 socket.onmessage = function (event) { //#B
   var result = JSON.parse(event.data);
@@ -758,7 +758,7 @@ td, th {
     <div class="row">
         <!--<div class="column">
             <center><h2>Cámara Interior</h2></center>
-            <img src="http://pluton.datsi.fi.upm.es:8484/Camera_inside/properties/NewPhoto" style="width:700px"/>
+            <img src="http://ofs.fi.upm.es:8484/WoT/Camera_inside/properties/NewPhoto" style="width:700px"/>
         </div>
         <div class="column">
             <center><h3>BIENVENIDO AL OBSERVATORIO ASTRONÓMICO FMS</h3></center>
@@ -766,7 +766,7 @@ td, th {
         </div>
         <div class="column">
             <center><h2>Cámara Exterior</h2></center>
-            <img src="http://pluton.datsi.fi.upm.es:8484/Camera_outside/properties/NewPhoto" style="width:700px"/>
+            <img src="http://ofs.fi.upm.es:8484/WoT/Camera_outside/properties/NewPhoto" style="width:700px"/>
         </div>-->
     </div>
 
@@ -775,7 +775,7 @@ td, th {
         <!-- Footer -->
         <!--<footer class="w3-container w3-padding-16 w3-light-grey">-->
         <h4><p>Cíclope Group:
-            <a href="http://pluton.datsi.fi.upm.es/inicio">
+            <a href="http://ofs.fi.upm.es/inicio">
                 Observatorio Astronómico Francisco Manuel Sánchez
             </a>
         </p></h4>

@@ -318,17 +318,17 @@ td, th {
     <div class="row">
         <div class="column side">
             <header class="w3-container" style="padding-top:22px">
-                <table>
+                <!--<table>
                     <tr>
                         <td><h5><b><i class="fa fa-refresh fa-spin"></i> Estados</b></h5></td>
 
                         <td><form role="search" th:action="@{/}" method="get">
-                            <!-- <input class="button" type="submit" value="Refresh"/> -->
+                            <input class="button" type="submit" value="Refresh"/>
                             <button id="connect" class="button" type="submit">Connect</button>
                             </form>
                         </td>
                     </tr>
-                </table>
+                </table>-->
             </header>
             <section>
             <table><!--Estados -->
@@ -408,7 +408,7 @@ td, th {
                                     var element = document.getElementById("weather_state");
                                     element.appendChild(v2);
 
-                                    var socket = new WebSocket('ws://pluton.datsi.fi.upm.es:8484/WeatherStation/properties/demo_grafica'); //#A
+                                    var socket = new WebSocket('wss://ofs.fi.upm.es:8484/WoT/WeatherStation/properties/demo_grafica'); //#A
                                     socket.onmessage = function (event) { //#B
                                       var result = JSON.parse(event.data);
                                       //console.log(event.data);
@@ -471,7 +471,7 @@ td, th {
         return d.toLocaleTimeString();
       }
 
-var socket = new WebSocket('ws://pluton.datsi.fi.upm.es:8484/WeatherStation/properties/demo_grafica'); //#A
+var socket = new WebSocket('wss://ofs.fi.upm.es:8484/WoT/WeatherStation/properties/demo_grafica'); //#A
 
 socket.onmessage = function (event) { //#B
   var result = JSON.parse(event.data);
@@ -483,7 +483,7 @@ socket.onerror = function (error) { //#C
   console.log(error);
 };
 
-//#A Create a WebSocket subscription to the temperature sensor. Note that the URL uses the WebSockets protocol (ws://...)
+//#A Create a WebSocket subscription to the temperature sensor. Note that the URL uses the WebSockets protocol (wss://...)
 //#B Register this anonymous function to be called when a message arrives on the WebSocket
 //#C Register this other anonymous function to be triggered when an error occurs on the WebSocket
 
@@ -505,77 +505,282 @@ socket.onerror = function (error) { //#C
                         <div id="altaTemp_state"></div>
                     </td>
                 </tr>
-                <!--<tr>
+                <tr>
                     <td><center><h5><b>Baja Temperatura</b></h5></center></td>
                     <td>
-                        &lt;!&ndash; IF true &ndash;&gt;
-                        <div th:if="${alarms[1]}">
-                            <div class="led-red"></div>
-                        </div>
-                        &lt;!&ndash; ELSE &ndash;&gt;
-                        <div th:unless="${alarms[1]}">
-                            <div class="led-green"></div>
-                        </div>
+                        <div id="bajaTemp_led"></div>
                     </td>
                     <td>
-                        &lt;!&ndash; IF true &ndash;&gt;
-                        <div th:if="${alarms[1]}">
-                            <center><h5><b>WARNING</b></h5></center>
-                        </div>
-                        &lt;!&ndash; ELSE &ndash;&gt;
-                        <div th:unless="${alarms[1]}">
-                            <center><h5><b>OK</b></h5></center>
-                        </div>
+                        <div id="bajaTemp_state"></div>
                     </td>
                 </tr>
                 <tr>
                     <td><center><h5><b>Lluvia</b></h5></center></td>
                     <td>
-                        &lt;!&ndash; IF true &ndash;&gt;
-                        <div th:if="${alarms[2]}">
-                            <div class="led-red"></div>
-                        </div>
-                        &lt;!&ndash; ELSE &ndash;&gt;
-                        <div th:unless="${alarms[2]}">
-                            <div class="led-green"></div>
-                        </div>
+                        <div id="lluvia_led"></div>
                     </td>
                     <td>
-                        &lt;!&ndash; IF true &ndash;&gt;
-                        <div th:if="${alarms[2]}">
-                            <center><h5><b>WARNING</b></h5></center>
-                        </div>
-                        &lt;!&ndash; ELSE &ndash;&gt;
-                        <div th:unless="${alarms[2]}">
-                            <center><h5><b>OK</b></h5></center>
-                        </div>
+                        <div id="lluvia_state"></div>
                     </td>
                 </tr>
+
                 <tr>
                     <td><center><h5><b>Viento Racheado</b></h5></center></td>
                     <td>
-                        &lt;!&ndash; IF true &ndash;&gt;
-                        <div th:if="${alarms[3]}">
-                            <div class="led-red"></div>
-                        </div>
-                        &lt;!&ndash; ELSE &ndash;&gt;
-                        <div th:unless="${alarms[3]}">
-                            <div class="led-green"></div>
-                        </div>
+                        <div id="viento_led"></div>
                     </td>
                     <td>
-                        &lt;!&ndash; IF true &ndash;&gt;
-                        <div th:if="${alarms[3]}">
-                            <center><h5><b>WARNING</b></h5></center>
-                        </div>
-                        &lt;!&ndash; ELSE &ndash;&gt;
-                        <div th:unless="${alarms[3]}">
-                            <center><h5><b>OK</b></h5></center>
-                        </div>
+                        <div id="viento_state"></div>
                     </td>
-                </tr>-->
+                </tr>
             </table>
         </div>
+        <script type="text/javascript">
+                                $(document).ready(function () {
+                                    //WeatherStation
+                                    //Valores iniciales: Cargando...
+                                    var atv1 = document.createElement("p");
+                                    atv1.setAttribute("id", "atweather1");
+                                    var attxt1 = document.createTextNode("Cargando...");
+                                    atv1.appendChild(attxt1);
+                                    var atelement = document.getElementById("altaTemp_led");
+                                    atelement.appendChild(atv1);
+
+                                    var atv2 = document.createElement("p");
+                                    atv2.setAttribute("id", "atweather2");
+                                    var attxt2 = document.createTextNode("Cargando...");
+                                    atv2.appendChild(attxt2);
+                                    var atelement = document.getElementById("altaTemp_state");
+                                    atelement.appendChild(atv2);
+
+                                    var atsocket = new WebSocket('wss://ofs.fi.upm.es:8484/WoT/WeatherStation/events/HighTemperature'); //#A
+                                    atsocket.onmessage = function (event) { //#B
+                                      var atresult = JSON.parse(event.data);
+                                      //console.log(event.data);
+                                      console.log(atresult.data.state);
+                                      var atstate = atresult.data.state;
+
+                                      $("#atweather1").remove();
+                                      $("#atweather2").remove();
+
+                                      if(atstate == "OFF"){
+                                          var atv3 = document.createElement("div");
+                                          atv3.setAttribute("id", "atweather1");
+                                          atv3.setAttribute("class", "led-green");
+                                          var atelement1 = document.getElementById("altaTemp_led");
+                                          atelement1.appendChild(atv3);
+                                          //<tr><td><div class="led-green"></div></td></tr>
+
+                                          var atv4 = document.createElement("div");
+                                          atv4.setAttribute("id", "atweather2");
+                                          var atv5 = document.createElement("center");
+                                          var atv6 = document.createElement("h5");
+                                          var atv7 = document.createElement("b");
+                                          atv4.appendChild(atv5);
+                                          atv5.appendChild(atv6);
+                                          atv6.appendChild(atv7);
+                                          var attxt4 = document.createTextNode("OK");
+                                          atv7.appendChild(attxt4);
+                                          var atelement2 = document.getElementById("altaTemp_state");
+                                          atelement2.appendChild(atv4);
+                                          //<center><h5><b>OFF</b></h5></center>
+                                      }
+                                      else{
+                                          var atv3 = document.createElement("div");
+                                          atv3.setAttribute("id", "atweather1");
+                                          atv3.setAttribute("class", "led-red");
+                                          //var txt3 = document.createTextNode("This is new.");
+                                          //v3.appendChild(txt3);
+                                          var atelement = document.getElementById("altaTemp_led");
+                                          atelement.appendChild(atv3);
+                                          //<tr><td><div class="led-red"></div></td></tr>
+
+                                          var atv4 = document.createElement("div");
+                                          atv4.setAttribute("id", "atweather2");
+                                          var atv5 = document.createElement("center");
+                                          var atv6 = document.createElement("h5");
+                                          var atv7 = document.createElement("b");
+                                          atv4.appendChild(atv5);
+                                          atv5.appendChild(atv6);
+                                          atv6.appendChild(atv7);
+                                          var attxt4 = document.createTextNode("WARNING");
+                                          atv7.appendChild(attxt4);
+                                          var atelement2 = document.getElementById("altaTemp_state");
+                                          atelement2.appendChild(atv4);
+                                          //<center><h5><b>OFF</b></h5></center>
+                                      }
+                                    };
+
+                                    atsocket.onerror = function (error) { //#C
+                                      console.log('WebSocket error!');
+                                      console.log(error);
+                                    };
+                                });
+                            </script>
+        <script type="text/javascript">
+                                $(document).ready(function () {
+                                    //WeatherStation
+                                    //Valores iniciales: Cargando...
+                                    var btv1 = document.createElement("p");
+                                    btv1.setAttribute("id", "btweather1");
+                                    var bttxt1 = document.createTextNode("Cargando...");
+                                    btv1.appendChild(bttxt1);
+                                    var btelement = document.getElementById("bajaTemp_led");
+                                    btelement.appendChild(btv1);
+
+                                    var btv2 = document.createElement("p");
+                                    btv2.setAttribute("id", "btweather2");
+                                    var bttxt2 = document.createTextNode("Cargando...");
+                                    btv2.appendChild(bttxt2);
+                                    var btelement = document.getElementById("bajaTemp_state");
+                                    btelement.appendChild(btv2);
+
+                                    var btsocket = new WebSocket('wss://ofs.fi.upm.es:8484/WoT/WeatherStation/events/LowTemperature'); //#A
+                                    btsocket.onmessage = function (event) { //#B
+                                      var btresult = JSON.parse(event.data);
+                                      //console.log(event.data);
+                                      console.log(btresult.data.state);
+                                      var btstate = btresult.data.state;
+
+                                      $("#btweather1").remove();
+                                      $("#btweather2").remove();
+
+                                      if(btstate == "OFF"){
+                                          var btv3 = document.createElement("div");
+                                          btv3.setAttribute("id", "btweather1");
+                                          btv3.setAttribute("class", "led-green");
+                                          var btelement1 = document.getElementById("bajaTemp_led");
+                                          btelement1.appendChild(btv3);
+                                          //<tr><td><div class="led-green"></div></td></tr>
+
+                                          var btv4 = document.createElement("div");
+                                          btv4.setAttribute("id", "btweather2");
+                                          var btv5 = document.createElement("center");
+                                          var btv6 = document.createElement("h5");
+                                          var btv7 = document.createElement("b");
+                                          btv4.appendChild(btv5);
+                                          btv5.appendChild(btv6);
+                                          btv6.appendChild(btv7);
+                                          var bttxt4 = document.createTextNode("OK");
+                                          btv7.appendChild(bttxt4);
+                                          var btelement2 = document.getElementById("bajaTemp_state");
+                                          btelement2.appendChild(btv4);
+                                          //<center><h5><b>OFF</b></h5></center>
+                                      }
+                                      else{
+                                          var btv3 = document.createElement("div");
+                                          btv3.setAttribute("id", "btweather1");
+                                          btv3.setAttribute("class", "led-red");
+                                          //var txt3 = document.createTextNode("This is new.");
+                                          //v3.appendChild(txt3);
+                                          var btelement = document.getElementById("bajaTemp_led");
+                                          btelement.appendChild(btv3);
+                                          //<tr><td><div class="led-red"></div></td></tr>
+
+                                          var btv4 = document.createElement("div");
+                                          btv4.setAttribute("id", "weather2");
+                                          var btv5 = document.createElement("center");
+                                          var btv6 = document.createElement("h5");
+                                          var btv7 = document.createElement("b");
+                                          btv4.appendChild(btv5);
+                                          btv5.appendChild(btv6);
+                                          btv6.appendChild(btv7);
+                                          var bttxt4 = document.createTextNode("WARNING");
+                                          btv7.appendChild(bttxt4);
+                                          var btelement2 = document.getElementById("bajaTemp_state");
+                                          btelement2.appendChild(btv4);
+                                          //<center><h5><b>OFF</b></h5></center>
+                                      }
+                                    };
+
+                                    btsocket.onerror = function (error) { //#C
+                                      console.log('WebSocket error!');
+                                      console.log(error);
+                                    };
+                                });
+                            </script>
+        <script type="text/javascript">
+                                $(document).ready(function () {
+                                    //WeatherStation
+                                    //Valores iniciales: Cargando...
+                                    var vv1 = document.createElement("p");
+                                    vv1.setAttribute("id", "vweather1");
+                                    var vtxt1 = document.createTextNode("Cargando...");
+                                    vv1.appendChild(vtxt1);
+                                    var velement = document.getElementById("lluvia_led");
+                                    velement.appendChild(vv1);
+
+                                    var vv2 = document.createElement("p");
+                                    vv2.setAttribute("id", "vweather2");
+                                    var vtxt2 = document.createTextNode("Cargando...");
+                                    vv2.appendChild(vtxt2);
+                                    var velement = document.getElementById("lluvia_state");
+                                    velement.appendChild(vv2);
+
+                                    var vsocket = new WebSocket('wss://ofs.fi.upm.es:8484/WoT/WeatherStation/events/Rain'); //#A
+                                    vsocket.onmessage = function (event) { //#B
+                                      var vresult = JSON.parse(event.data);
+                                      //console.log(event.data);
+                                      console.log(vresult.data.state);
+                                      var vstate = vresult.data.state;
+
+                                      $("#vweather1").remove();
+                                      $("#vweather2").remove();
+
+                                      if(vstate == "OFF"){
+                                          var vv3 = document.createElement("div");
+                                          vv3.setAttribute("id", "vweather1");
+                                          vv3.setAttribute("class", "led-green");
+                                          var velement1 = document.getElementById("lluvia_led");
+                                          velement1.appendChild(vv3);
+                                          //<tr><td><div class="led-green"></div></td></tr>
+
+                                          var vv4 = document.createElement("div");
+                                          vv4.setAttribute("id", "vweather2");
+                                          var vv5 = document.createElement("center");
+                                          var vv6 = document.createElement("h5");
+                                          var vv7 = document.createElement("b");
+                                          vv4.appendChild(vv5);
+                                          vv5.appendChild(vv6);
+                                          vv6.appendChild(vv7);
+                                          var vtxt4 = document.createTextNode("OK");
+                                          vv7.appendChild(vtxt4);
+                                          var velement2 = document.getElementById("lluvia_state");
+                                          velement2.appendChild(vv4);
+                                          //<center><h5><b>OFF</b></h5></center>
+                                      }
+                                      else{
+                                          var vv3 = document.createElement("div");
+                                          vv3.setAttribute("id", "vweather1");
+                                          vv3.setAttribute("class", "led-red");
+                                          //var txt3 = document.createTextNode("This is new.");
+                                          //v3.appendChild(vtxt3);
+                                          var velement = document.getElementById("lluvia_led");
+                                          velement.appendChild(vv3);
+                                          //<tr><td><div class="led-red"></div></td></tr>
+
+                                          var vv4 = document.createElement("div");
+                                          vv4.setAttribute("id", "vweather2");
+                                          var vv5 = document.createElement("center");
+                                          var vv6 = document.createElement("h5");
+                                          var vv7 = document.createElement("b");
+                                          vv4.appendChild(vv5);
+                                          vv5.appendChild(vv6);
+                                          vv6.appendChild(vv7);
+                                          var vtxt4 = document.createTextNode("WARNING");
+                                          vv7.appendChild(txt4);
+                                          var velement2 = document.getElementById("lluvia_state");
+                                          velement2.appendChild(vv4);
+                                          //<center><h5><b>OFF</b></h5></center>
+                                      }
+                                    };
+
+                                    vsocket.onerror = function (error) { //#C
+                                      console.log('WebSocket error!');
+                                      console.log(error);
+                                    };
+                                });
+                            </script>
         <script type="text/javascript">
                                 $(document).ready(function () {
                                     //WeatherStation
@@ -584,17 +789,17 @@ socket.onerror = function (error) { //#C
                                     v1.setAttribute("id", "weather1");
                                     var txt1 = document.createTextNode("Cargando...");
                                     v1.appendChild(txt1);
-                                    var element = document.getElementById("altaTemp_led");
+                                    var element = document.getElementById("viento_led");
                                     element.appendChild(v1);
 
                                     var v2 = document.createElement("p");
                                     v2.setAttribute("id", "weather2");
                                     var txt2 = document.createTextNode("Cargando...");
                                     v2.appendChild(txt2);
-                                    var element = document.getElementById("altaTemp_state");
+                                    var element = document.getElementById("viento_state");
                                     element.appendChild(v2);
 
-                                    var socket = new WebSocket('ws://pluton.datsi.fi.upm.es:8484/WeatherStation/events/HighTemperature'); //#A
+                                    var socket = new WebSocket('wss://ofs.fi.upm.es:8484/WoT/WeatherStation/events/StrongWind'); //#A
                                     socket.onmessage = function (event) { //#B
                                       var result = JSON.parse(event.data);
                                       //console.log(event.data);
@@ -608,7 +813,7 @@ socket.onerror = function (error) { //#C
                                           var v3 = document.createElement("div");
                                           v3.setAttribute("id", "weather1");
                                           v3.setAttribute("class", "led-green");
-                                          var element1 = document.getElementById("altaTemp_led");
+                                          var element1 = document.getElementById("viento_led");
                                           element1.appendChild(v3);
                                           //<tr><td><div class="led-green"></div></td></tr>
 
@@ -622,7 +827,7 @@ socket.onerror = function (error) { //#C
                                           v6.appendChild(v7);
                                           var txt4 = document.createTextNode("OK");
                                           v7.appendChild(txt4);
-                                          var element2 = document.getElementById("altaTemp_state");
+                                          var element2 = document.getElementById("viento_state");
                                           element2.appendChild(v4);
                                           //<center><h5><b>OFF</b></h5></center>
                                       }
@@ -632,7 +837,7 @@ socket.onerror = function (error) { //#C
                                           v3.setAttribute("class", "led-red");
                                           //var txt3 = document.createTextNode("This is new.");
                                           //v3.appendChild(txt3);
-                                          var element = document.getElementById("altaTemp_led");
+                                          var element = document.getElementById("viento_led");
                                           element.appendChild(v3);
                                           //<tr><td><div class="led-red"></div></td></tr>
 
@@ -646,7 +851,7 @@ socket.onerror = function (error) { //#C
                                           v6.appendChild(v7);
                                           var txt4 = document.createTextNode("WARNING");
                                           v7.appendChild(txt4);
-                                          var element2 = document.getElementById("altaTemp_state");
+                                          var element2 = document.getElementById("viento_state");
                                           element2.appendChild(v4);
                                           //<center><h5><b>OFF</b></h5></center>
                                       }
@@ -662,16 +867,17 @@ socket.onerror = function (error) { //#C
 
     <div class="row">
         <div class="column">
-            <center><h2>Cámara Interior</h2></center>
-            <img src="http://pluton.datsi.fi.upm.es:8484/Camera_inside/properties/NewPhoto" style="width:700px"/>
+            <center><h2>Cámara Interior 1</h2></center>
+            <img src="https://ofs.fi.upm.es:8484/WoT/Camera_inside/1/properties/NewPhoto" style="width:700px"/>
         </div>
          <div class="column">
-             <center><h3>BIENVENIDO AL OBSERVATORIO ASTRONÓMICO FMS</h3></center>
-             <img src="../images/observatorio.jpeg" style="width:700px"/>
+             <center><h2>Cámara Interior 2</h2></center>
+             <img src="https://ofs.fi.upm.es:8484/WoT/Camera_inside/2/properties/NewPhoto" style="width:700px"/>
+             <!-- <img src="../images/observatorio.jpeg" style="width:700px"/> -->
          </div>
          <div class="column">
              <center><h2>Cámara Exterior</h2></center>
-             <img src="http://pluton.datsi.fi.upm.es:8484/Camera_outside/properties/NewPhoto" style="width:700px"/>
+             <img src="https://ofs.fi.upm.es:8484/WoT/Camera_outside/properties/NewPhoto" style="width:700px"/>
          </div>
      </div>
 
@@ -680,7 +886,7 @@ socket.onerror = function (error) { //#C
      <!-- Footer -->
     <!--<footer class="w3-container w3-padding-16 w3-light-grey">-->
         <h4><p>Cíclope Group:
-            <a href="http://pluton.datsi.fi.upm.es/inicio">
+            <a href="http://ofs.fi.upm.es/inicio">
                 Observatorio Astronómico Francisco Manuel Sánchez
             </a>
         </p></h4>
